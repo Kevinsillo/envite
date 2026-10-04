@@ -2,7 +2,7 @@
 
 # Envite
 
-***Encrypted vaults for your environment variables — shared by a team, local or over SSH, deployed as .env files.***
+***Encrypted vaults for environment variables and .env files — share secrets with your team, keep them on disk or on a server over SSH, and deploy .env files from a fast terminal UI.***
 
 [Documentation](https://kevinsillo.github.io/envite/) · [Releases](https://github.com/Kevinsillo/envite/releases) · [Issues](https://github.com/Kevinsillo/envite/issues)
 
@@ -31,7 +31,6 @@ curl -fsSL https://raw.githubusercontent.com/Kevinsillo/envite/main/install.sh |
 - A single static binary for Linux x86_64, no runtime dependencies, installed to `~/.local/bin` after checking its SHA-256; `envite --version` prints the installed version.
 - The system `ssh` client is used for remote vaults and deploys.
 - `envite update` installs the latest release after checking its SHA-256 (it needs `curl`). Once a day at startup envite also looks for a new version and offers it; turn that off in **Options**.
-- The first release will be 1.0.0; until then there is nothing to download.
 
 Version, install directory, manual download and updating → [Installation](https://kevinsillo.github.io/envite/en/getting-started/installation/)
 

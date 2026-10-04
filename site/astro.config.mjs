@@ -23,7 +23,7 @@ export default defineConfig({
 			plugins: [starlightThemeNext()],
 			customCss: ['./src/styles/custom.css'],
 			title: 'Envite',
-			description: 'Encrypted vaults for your environment variables.',
+			description: 'Encrypted vaults for environment variables and .env files. Share secrets with your team, keep them on disk or on a server over SSH, and deploy .env files from a fast terminal UI.',
 			defaultLocale: 'en',
 			locales: {
 				en: {
