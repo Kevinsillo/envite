@@ -1,0 +1,63 @@
+envite License (freeware)
+
+Copyright (c) 2026 Kevin Illanas Cabeza <kevin.illanas@gmail.com>.
+All rights reserved.
+
+This license covers the envite software in binary form ("the Software") and
+the texts of its documentation (the website and the README files of the
+public repository at https://github.com/Kevinsillo/envite, "the
+Documentation").
+
+1. Grant
+
+   You are granted a free of charge, non-exclusive, worldwide right to
+   download and use the official envite binaries published at
+   https://github.com/Kevinsillo/envite/releases, for personal and commercial
+   purposes.
+
+2. Restrictions
+
+   You may not:
+
+   a) modify, reverse engineer, decompile or disassemble the Software, except
+      where and only to the extent that applicable law expressly permits it
+      despite this limitation;
+   b) redistribute, sell, rent, lease, sublicense or host the Software, in
+      whole or in part, outside the official channels above. Linking to the
+      official releases or to the official installer is allowed.
+
+3. Documentation
+
+   The Documentation may be read, linked to and quoted briefly with
+   attribution. You may not republish it or distribute copies or derivative
+   works of it.
+
+4. Third-party components
+
+   The Software includes third-party components that are licensed under
+   their own terms, listed in the THIRD-PARTY-LICENSES file shipped with each
+   release. Nothing in this license limits the rights granted by those
+   licenses.
+
+5. No warranty
+
+   THE SOFTWARE AND THE DOCUMENTATION ARE PROVIDED "AS IS", WITHOUT WARRANTY
+   OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE
+   WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+   NONINFRINGEMENT.
+
+6. Limitation of liability
+
+   IN NO EVENT SHALL THE AUTHOR OR COPYRIGHT HOLDER BE LIABLE FOR ANY CLAIM,
+   DAMAGES OR OTHER LIABILITY, INCLUDING ANY LOSS OF DATA, WHETHER IN AN
+   ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+   CONNECTION WITH THE SOFTWARE, THE DOCUMENTATION OR THE USE OR OTHER
+   DEALINGS IN THEM, TO THE MAXIMUM EXTENT PERMITTED BY APPLICABLE LAW.
+
+7. Termination
+
+   This license terminates automatically if you breach any of its terms.
+   On termination you must stop using the Software and delete every copy of
+   it in your possession.
+
+All rights not expressly granted in this license are reserved.

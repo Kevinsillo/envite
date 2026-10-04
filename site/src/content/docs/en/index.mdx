@@ -1,0 +1,67 @@
+---
+title: Envite
+description: Encrypted vaults for your environment variables — shared by a team, local or over SSH, deployed as .env files.
+template: splash
+hero:
+  title: Envite
+  tagline: Encrypted vaults for your environment variables — shared by a team, kept on disk or over SSH, deployed as .env files.
+  actions:
+    - text: Get started
+      link: getting-started/introduction/
+      icon: right-arrow
+      variant: primary
+    - text: GitHub
+      link: https://github.com/Kevinsillo/envite
+      icon: external
+      variant: secondary
+---
+
+import { Card, CardGrid, Tabs, TabItem } from '@astrojs/starlight/components';
+
+<CardGrid stagger>
+  <Card title="One encrypted file" icon="seti:lock">
+    A vault is a single `.envite` file: XChaCha20-Poly1305 over a compressed database, with an authenticated header. Nothing is stored in the clear.
+  </Card>
+  <Card title="Built for teams" icon="puzzle">
+    Every member opens the vault with their own password. Nobody shares a password, and removing a member rotates the vault key.
+  </Card>
+  <Card title="Local or over SSH" icon="laptop">
+    Keep the vault on your disk, a synced folder or a server reached with your own `ssh` setup. Concurrent edits merge on save.
+  </Card>
+  <Card title="Deploy .env files" icon="rocket">
+    Preview a key-by-key diff, confirm, and envite writes the `.env` file atomically, locally or on a server, with a backup of the previous one.
+  </Card>
+  <Card title="Terminal interface" icon="seti:rust">
+    A keyboard-driven TUI in a single static Linux binary, written in Rust. Works with `NO_COLOR` and the 16 colors of your terminal.
+  </Card>
+  <Card title="History and audit" icon="open-book">
+    Every project, environment, section and variable keeps its last 10 changes — who, when and which fields — without ever showing a value.
+  </Card>
+</CardGrid>
+
+## Quick install
+
+<Tabs syncKey="os">
+  <TabItem label="Linux">
+    ```bash
+    curl -fsSL https://raw.githubusercontent.com/Kevinsillo/envite/main/install.sh | bash
+    ```
+  </TabItem>
+</Tabs>
+
+A single static binary for Linux x86_64, checked against its SHA-256 and installed to `~/.local/bin`. Options, manual download and updating → [Installation](getting-started/installation/).
+
+<div class="spacer" />
+
+## How it works
+
+Envite organizes environment variables in four levels:
+
+- **Projects** — an application or service, with its descriptive fields.
+- **Environments** — `production`, `staging`… each with its own deploy target.
+- **Sections** — groups of variables, written as titled blocks in the `.env` file.
+- **Variables** — a key, a value, an optional comment, a secret flag and a state.
+
+The vault is the source of truth. When an environment is ready, envite renders its `.env` file, compares it with the one at the target and writes it there once you confirm.
+
+Start with the [introduction](getting-started/introduction/), or go straight to [installation](getting-started/installation/).

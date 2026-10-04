@@ -1,0 +1,70 @@
+---
+title: Share a vault with a team
+description: Put a vault where the team can reach it, add members, change passwords and remove members safely.
+sidebar:
+  order: 20
+---
+
+import { Steps, Aside } from '@astrojs/starlight/components';
+
+A vault is shared by sharing its file and adding each person as a member. Every member then opens it with their own username and password.
+
+## Put the vault where everyone can reach it
+
+Pick a location every member can read and write:
+
+- **A server over SSH** — create the vault with the **SSH** location, for example on a host the team already uses. Each member needs an SSH account there with write access to the vault's directory. See [Remote vaults over SSH](../../concepts/remote-vaults/).
+- **A synchronized folder or network share** — create the vault with a **Local path** inside it. The directory must be on a file system that supports hard links, which the save lock relies on.
+
+## Add a member
+
+<Steps>
+
+1. Open the vault and press `u` on **Projects**. **Users** lists the members, sorted by username, with the key derivation of each password; you are marked `(you)`.
+
+2. Press `n`. In **Add member**, type the **Username**, a **Password** twice and choose the **Key derivation** (it starts on the default of the vault). The password follows the same rules as when creating a vault.
+
+3. Press `Enter`. The status bar says **Added ana to the vault**; the member is saved with the next automatic save.
+
+4. Give the new member their username and initial password through a safe channel, and the location of the vault.
+
+5. The new member adds the vault with **Open existing** (`o` on the home screen), logs in, and changes their password: `u`, then `e`.
+
+</Steps>
+
+## Change your password
+
+On **Users**, `e` opens **Change password**, always for yourself. Type your **Current password**, then the **New password** twice, and choose the **Key derivation**. Leave the new password blank to change only the key derivation. The change is saved with the next save.
+
+Changing a password re-encrypts only your private key: the other members and the vault key are not affected.
+
+## Remove a member
+
+<Steps>
+
+1. On **Users**, select the member and press `d`.
+
+2. Confirm with **Remove** (the dialog starts on **Cancel**).
+
+3. The vault key is rotated and the vault is saved at once: the status bar shows `Removing member...`.
+
+</Steps>
+
+The last member cannot be removed. If the vault was saved elsewhere with conflicting changes, the removal is refused until they are [resolved](../resolve-conflicts/).
+
+<Aside type="caution" title="Removal is not retroactive">
+A removed member cannot open any revision saved after the removal, but they keep whatever they already had: copies of the file in a synchronized folder or a backup, which still open with their old password, and any value they saw. After removing a member, rotate the secrets they had access to — change the values themselves, not only the vault.
+</Aside>
+
+## Leave a vault
+
+Removing yourself asks a second time, **Leave the vault**, since it ends your access. Once removed, the vault closes and the home screen says **You left the vault**.
+
+## Vault options
+
+`o` on **Projects** opens **Vault options**, shared by every member:
+
+- **Default unix group** (under **Deploy**) — the group given to deployed files of projects that set none. Blank for none.
+- **Key derivation** (under **Security**) — the preset proposed for new members. It does not change any existing password.
+
+`Enter` saves the options that changed and goes back.

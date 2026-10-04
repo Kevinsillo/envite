@@ -1,0 +1,12 @@
+:root {
+	--sl-text-body-sm: var(--sl-text-xs);
+	--sl-text-body: var(--sl-text-sm);
+}
+
+.sl-markdown-content {
+	font-size: var(--sl-text-body);
+}
+
+.spacer {
+	margin-bottom: 4rem;
+}

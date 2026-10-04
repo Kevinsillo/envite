@@ -1,0 +1,153 @@
+---
+title: Installation
+description: Install the static Linux binary of envite with the one-line installer or by hand from GitHub Releases, and keep it up to date.
+sidebar:
+  order: 2
+---
+
+import { Steps, Aside, Tabs, TabItem } from '@astrojs/starlight/components';
+
+Envite ships as a single static binary for Linux x86_64, published on the [GitHub Releases](https://github.com/Kevinsillo/envite/releases) page of the public repository. It has no runtime dependencies besides the system `ssh` client, which is only needed for vaults and deploys over SSH.
+
+<Aside type="note" title="First release">
+The first published version will be **1.0.0**. Until it is out, the Releases page is empty and there is nothing to download yet.
+</Aside>
+
+## Quick install
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/Kevinsillo/envite/main/install.sh | bash
+```
+
+The installer downloads the archive of the latest release and its `SHA256SUMS.txt`, checks the checksum and installs the binary to `~/.local/bin/envite`. It needs `curl`, `tar` and `sha256sum`, and warns when the install directory is not on your `PATH`.
+
+Two environment variables change what it does:
+
+| Variable | Effect |
+|---|---|
+| `ENVITE_VERSION` | Version to install, such as `1.0.0`. The latest release by default. |
+| `ENVITE_INSTALL_DIR` | Directory for the binary. `~/.local/bin` by default. |
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/Kevinsillo/envite/main/install.sh | ENVITE_VERSION=1.0.0 ENVITE_INSTALL_DIR=/opt/bin bash
+```
+
+After installing, the installer runs `envite --version` and checks that it reports the version it installed. Check it yourself at any time:
+
+```bash
+envite --version
+```
+
+Then start it:
+
+```bash
+envite
+```
+
+Everything happens in the terminal interface; the few [command line options](../../reference/command-line/) only print information. See [First start](../first-start/) for what to do next.
+
+## Manual install
+
+Each release has two files: `envite-<version>-x86_64-linux-musl.tar.gz`, with the binary, its license, the licenses of the third-party components it includes (`THIRD-PARTY-LICENSES.md`) and a short `README.txt`, and `SHA256SUMS.txt`, with the checksum of the archive.
+
+<Steps>
+
+1. Download both files of the release you want from the [Releases page](https://github.com/Kevinsillo/envite/releases), into the same directory.
+
+2. Check the archive against its checksum:
+
+   ```bash
+   sha256sum --check SHA256SUMS.txt
+   ```
+
+   The command must print `OK` for the archive.
+
+3. Extract the archive:
+
+   ```bash
+   tar -xzf envite-*-x86_64-linux-musl.tar.gz
+   ```
+
+4. Copy the binary to a directory on your `PATH`, for example `~/.local/bin`:
+
+   ```bash
+   install -m 755 envite-*-x86_64-linux-musl/envite ~/.local/bin/envite
+   ```
+
+5. Check that it runs and reports the version you downloaded:
+
+   ```bash
+   envite --version
+   ```
+
+</Steps>
+
+## Requirements
+
+- Linux on x86_64. The binary is statically linked, so it does not depend on the libraries of your distribution.
+- A terminal at least 80 columns wide is recommended; the key hints of every screen fit in 80 columns.
+- OpenSSH 7.7 or newer, only for vaults on SSH hosts and deploys to servers. Envite uses your own `ssh` setup: `~/.ssh/config`, `known_hosts`, the agent and `ProxyJump` all apply.
+- `xdg-open`, only for the **GitHub** and **Open issue** links of the home screen.
+- `curl`, only to update envite from envite itself (`envite update`, **Check for updates** or the check at startup).
+
+## Updating
+
+Pick whichever way is at hand: all three install the same latest release.
+
+<Tabs>
+  <TabItem label="Command line" icon="seti:shell">
+    ```bash
+    envite update
+    ```
+
+    Checks the latest release, asks before installing it and replaces the binary you ran. Add `--yes` to install without asking, for example from a script. See [Command line](../../reference/command-line/#envite-update).
+  </TabItem>
+  <TabItem label="Home screen" icon="laptop">
+    Choose **Check for updates** in the **Menu** of the home screen. envite checks in the background, says whether a newer release exists, and installs it after you choose **Install** in the dialog; it does not quit while it installs. See [Tour of the screens](../tour/#home-and-vaults).
+  </TabItem>
+  <TabItem label="Installer" icon="rocket">
+    ```bash
+    curl -fsSL https://raw.githubusercontent.com/Kevinsillo/envite/main/install.sh | bash
+    ```
+
+    The [one-line installer](#quick-install) always installs the latest release over the current binary. You can also replace the binary by hand with the one from a newer release ([Manual install](#manual-install)).
+  </TabItem>
+</Tabs>
+
+### Check at startup
+
+Once a day, the first time you open envite, it asks GitHub for the latest release in the background; starting is never delayed. When a newer release exists, a dialog says **envite X is available (current Y)** with three answers:
+
+| Answer | Effect |
+|---|---|
+| **Update** | Installs it, as **Check for updates** does. |
+| **Skip this version** | Does not mention this release again; a newer one is announced. |
+| **Later** | Closes the dialog; the next day's check announces it again. Selected at first, and what `Esc` does. |
+
+The dialog never replaces another question that is open. Without network, without `curl` or without a published release, the check fails silently: it only leaves a line in the log, and runs again the next time you start envite. A day counts once a check completes, by the local date of your machine.
+
+To turn it off, clear **Check for updates at startup** in [Options](../../guides/options/). **Check for updates** in the **Menu** keeps working either way.
+
+### What an update does
+
+**Command line** and **Home screen** download the release archive and its `SHA256SUMS.txt` with the system `curl`, over HTTPS only, and install nothing unless the checksum matches. The new binary is written next to the current one, run once to check that it reports the new version within 10 seconds, and only then put in place of the old one in a single step: an update that fails at any point leaves the installed binary as it was. They need write access to the directory of the binary; for a binary installed by another user or under `/usr/local/bin`, run the update as a user who can write there, or run the installer again with the same `ENVITE_INSTALL_DIR`. Restart envite after the update to use the new version.
+
+Vault files keep working: a newer build opens older vaults and upgrades them in memory, writing the new layout on the next save. Once a member saves a vault with a newer build, every member needs a build at least as new to open it, so update the whole team together.
+
+## Uninstalling
+
+Delete the binary:
+
+```bash
+rm ~/.local/bin/envite
+```
+
+Envite keeps its `config.json`, its `logs/` directory and the default vault directory in the [configuration root](../../reference/configuration/), `~/.config/envite` (or `$XDG_CONFIG_HOME/envite`). Delete that directory too to remove every trace, after moving any vault you want to keep out of `~/.config/envite/vaults`.
+
+<Aside type="caution">
+Deleting a vault file deletes its content for good. There is no copy anywhere else unless you made one.
+</Aside>
+
+## License
+
+The binary is freeware: free to download and use, for personal and commercial purposes, under the [envite license](https://github.com/Kevinsillo/envite/blob/main/LICENSE). The source code is kept in a private repository, so building from source is not available to the public.

@@ -1,0 +1,60 @@
+---
+title: Resolve conflicts
+description: Review the conflicts a save left with the vault saved elsewhere, choose a side or edit the value, and save.
+sidebar:
+  order: 24
+---
+
+import { Steps } from '@astrojs/starlight/components';
+
+When your save and another member's save changed the same thing in different ways, envite writes nothing and the status bar reads `conflict · c resolve`. Your changes are safe in your session; you can keep working, but nothing is saved until every conflict has a choice. [Sync and conflicts](../../concepts/sync-and-conflicts/) explains when a conflict happens.
+
+## Resolve
+
+<Steps>
+
+1. Press `c` on any screen of the open vault. **Conflicts** shows `N to resolve · M chosen` and one row per conflict, with the choice made so far (`-` for none) and what it is about, never a value:
+
+   ```text
+   -     Variable shop/prod/API_KEY: value changed on both sides
+   -     Section shop/prod/db: deleted in theirs, but variable shop/prod/DB_HOST changed in mine
+   -     Key API used twice in environment shop/prod
+   ```
+
+2. Select a conflict and press `Enter` (or `e`). **Conflict** shows the **Field** compared and three versions:
+
+   - **Before (common)** — the value both sides had before either changed it;
+   - **Mine** — this session;
+   - **Theirs** — the vault saved elsewhere.
+
+   A side reads `(empty)` when the value is not set, `(did not exist)` when the record was not there, and `(deleted)` when it was deleted on that side.
+
+3. Choose **Mine**, **Theirs** or, when offered, **Edit**, and press `Enter` to go back to the list.
+
+4. Once every conflict has a choice, press `Enter` on the list. The status bar says `Resolving conflicts...`, then **Conflicts resolved and saved**.
+
+</Steps>
+
+## Editing a value
+
+**Edit** is offered for conflicts on a single text value: the name of a project, environment or section; any other field of a project but its date; the comment of a section; the key, value or comment of a variable; and the default unix group of the vault. The field starts with your value. A blank text clears an optional field.
+
+Every other conflict — a deletion against an edit, a duplicated name or key, the key derivation, the deploy settings, the secret flag, the state, the section of a variable, a duplicated member — is resolved with **Mine** or **Theirs** only.
+
+| Conflict | Mine / Theirs |
+|---|---|
+| Field changed on both sides | That side's value of the field. |
+| Deleted on one side, edited on the other | That side's record: kept, or removed with its descendants. |
+| Parent deleted with a new or edited child | That side's parent: kept, or removed with its children. |
+| Same name or key on both sides | Every colliding record takes that side's state. |
+| Same username, different members | That side's member keeps the username; the other is left out, which rotates the vault key. |
+
+## Secret values
+
+Only the value of a variable that is secret on either side is masked, as `********`. Press `v` (or `Ctrl-V`) on the **Conflict** screen to show it; it is masked again when you press `v` or leave the screen. Comments, keys and names show in clear.
+
+## When another save arrives meanwhile
+
+Resolving recomputes the merge with your session as it is now, so changes you made while in conflict are kept. If the vault was saved elsewhere again and brought new conflicts, nothing is saved: the list shows every pending conflict, keeps your choices for those still pending, and asks you to choose for the new ones.
+
+`Esc` on the list goes back and drops your choices. Locking the vault drops them too.

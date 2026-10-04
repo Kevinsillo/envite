@@ -1,0 +1,85 @@
+---
+title: Deploy a .env file
+description: Preview, confirm and write the .env file of an environment, locally or on a server over SSH.
+sidebar:
+  order: 22
+---
+
+import { Steps, Aside } from '@astrojs/starlight/components';
+
+A deploy renders the `.env` file of an environment from the vault and writes it to the environment's target: a directory on this machine, or on a server over SSH. Nothing is written until you have seen the changes and confirmed.
+
+## Before the first deploy
+
+Set the deploy target in the environment form (`e` on **Environments**):
+
+- **Server** — blank for this machine, or an SSH destination (`user@host`, an alias from `~/.ssh/config`, or `ssh://user@host:port`).
+- **Target path** — the directory of the file. It must already exist; envite never creates it.
+- **File name** — blank for `.env`.
+
+## Deploy
+
+<Steps>
+
+1. On **Environments**, select the environment and press `p`. The status bar says `Checking the target...` while envite reads the file at the target.
+
+2. Read the **Deploy** preview:
+
+   - **Target** — the path and the host, `this machine` or the SSH destination.
+   - **File** — the mode and group the file will get.
+   - **Changes** — a new file; none (the target is up to date); formatting only; or keys added, changed or removed.
+   - **Status** — whether the file at the target is as envite last deployed it, was changed outside envite, or was not deployed by envite.
+   - One row per key: `+ KEY=********` added, `- KEY=********` removed, `= KEY=********` unchanged, `~ OLD → NEW (value, state)` changed.
+
+3. To check a value, select its row and press `v`: it shows the value about to be deployed and, for a changed key, the one at the target. Moving to another row masks it again.
+
+4. Press `Enter`. The **Deploy** question starts on **Cancel**; choose **Deploy** to go on.
+
+5. If the file at the target was changed outside envite, or envite cannot tell, a second question, **Changes outside envite**, asks you to replace those changes. It also starts on **Cancel**.
+
+6. The file is written and **Deploy result** shows the path, the host and the backup taken.
+
+</Steps>
+
+`Esc` cancels the preview at any point before confirming. Once confirmed, a deploy cannot be interrupted; the status bar says `Deploying...` until it is done.
+
+## Changes made outside envite
+
+Every deploy records a fingerprint of the exact file it wrote. The next deploy compares the file at the target with it:
+
+| Status | Meaning |
+|---|---|
+| No file at the target | A new file will be created. |
+| As envite last deployed it | Nobody touched it since. |
+| Changed outside envite | Someone edited the file by hand since the last deploy. |
+| Not deployed by envite | There is a file, but envite has no record of writing it. |
+
+In the last two cases the second confirmation is required, because those changes will be lost (a backup is still taken). The preview does not list the lines of the file at the target, which can be large; compare it yourself if you need to see what changed.
+
+If the file at the target changes between the preview and the confirmation, nothing is written: preview again with `p`.
+
+## Backups
+
+Before replacing a file, envite copies it to `.envite-backups/` inside the target directory, named `<file>.<YYYYMMDD-HHMMSS>.bak` with the local time, for example `.env.20260115-093000.bak`. The 10 most recent backups of each file are kept; older ones are deleted after a successful deploy. A new file, or a deploy with no changes, takes no backup.
+
+## How the file is written
+
+The new content goes to a temporary file in the target directory, `.<file>.envite-<id>.tmp`, which is then renamed over the target. The replacement is atomic: readers see either the old or the new file. A failed deploy removes its temporary file and leaves the target untouched.
+
+## Permissions
+
+| Situation | Deployed file and backups | Backup directory |
+|---|---|---|
+| The project has a **Unix group** | `0660`, that group | `0770`, that group |
+| Otherwise, the vault has a **Default unix group** | `0660`, that group | `0770`, that group |
+| No group | `0600`, owner only | `0700`, owner only |
+
+On a server, the owner is the SSH user. An existing backup directory is left as it is.
+
+<Aside type="tip">
+Use a unix group when the application runs as another user than the one you deploy with: give the group to both users and set it on the project.
+</Aside>
+
+## No changes, no write
+
+The header of the file records when the environment last changed and when and by whom it was deployed. A deploy whose only difference is that deploy stamp writes nothing: **Changes** reads none, and the file keeps the time of the last deploy that really changed it. See the [.env file format](../../reference/env-format/).

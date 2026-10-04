@@ -1,0 +1,54 @@
+---
+title: Import a .env file
+description: Bring the KEY=value pairs of an existing .env file into an environment, choosing what to do with keys that already exist.
+sidebar:
+  order: 23
+---
+
+import { Steps } from '@astrojs/starlight/components';
+
+An import reads `KEY=value` pairs from a `.env` file and adds them to an environment. Use it to bring an existing project into envite, or to pick up changes someone made by hand on a server.
+
+## Import
+
+<Steps>
+
+1. On **Environments**, select the environment and press `i`.
+
+2. Choose where to read from:
+
+   - **Local file** — type its **File path**. `~` and paths starting with `~/` stand for your home directory.
+   - **Environment target** — the file at the deploy target of the environment, on its server.
+
+3. Press `Enter`. Envite reads the file (at most 1 MiB) and shows the **Import preview**.
+
+4. Review the pairs, in the order of the file. Each row shows the key (`# KEY` for a commented pair), the value as `********`, and what will happen:
+
+   - **create** — a new variable at the end of the **General** section, marked secret, with the state read from the file;
+   - **skip** — the default for a key a variable of the environment already has;
+   - **overwrite** — replaces the value and state of that existing variable, in its own section.
+
+5. Press `s` on a key that already exists to switch it between **skip** and **overwrite**. Press `v` to see the value of the selected pair.
+
+6. Press `Enter` to import. **Import result** lists the keys created, overwritten, unchanged and skipped.
+
+</Steps>
+
+The preview with your choices is the confirmation: there is no second question. Everything is imported in one step, or nothing on a failure. `Esc` cancels the preview.
+
+## What is imported
+
+Only key/value pairs. The preview says so, and that keys not in uppercase were uppercased; everything else in the file — comments, blank lines, invalid lines — is discarded without being listed or counted.
+
+- `KEY=value` and `export KEY=value` become enabled variables.
+- `# KEY=value` becomes a commented variable. A descriptive comment that happens to look like an entry (`# HOST=10.0.0.1`) is read as one too.
+- Double-quoted, single-quoted and multi-line values are supported.
+- When a key appears several times, the last value wins.
+
+The exact rules are in the [.env file format](../../reference/env-format/#what-envite-reads-from-a-file).
+
+Imported variables are always created as **secret**. Uncheck **Secret** in the detail of a variable whose value does not need masking.
+
+## After the import
+
+The import is recorded in the history of the environment. Move the new variables from **General** to their sections with the section picker of the variable detail (see [Organize variables](../organize-variables/#move-a-variable-to-another-section)).

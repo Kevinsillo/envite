@@ -1,0 +1,80 @@
+---
+title: First start
+description: Create your first vault or open an existing one, and log in as a member.
+sidebar:
+  order: 3
+---
+
+import { Steps, Aside, Tabs, TabItem } from '@astrojs/starlight/components';
+
+On its first start envite creates its configuration directory, `~/.config/envite` (or `$XDG_CONFIG_HOME/envite`), with a default `config.json`, a `logs/` directory and a `vaults/` directory for new local vaults. The home screen then opens with no known vaults and invites you to press `n` (new vault) or `o` (open an existing one).
+
+## Create a vault
+
+<Steps>
+
+1. Press `n` on the home screen (or on **Vaults**). The **Create vault** form opens.
+
+2. Fill in the **Vault** group:
+
+   - **Name** — the local alias the vault is listed under, 1 to 64 characters without `/` or `\`.
+   - **Location** — chosen with `←` `→`: **Default** stores the vault at `~/.config/envite/vaults/<name>.envite` (the note under the field shows the exact path); **Local path** takes an absolute path in **Vault file path**; **SSH** puts the vault on a server, with the host in **SSH host** as `user@host` or `user@host:port` and the path on that host in **Vault file path**.
+
+3. Fill in the **First member** group:
+
+   - **Your username** — lowercase letters, digits, `.`, `_` and `-`, up to 32 characters.
+   - **Password**, typed twice.
+   - **Key derivation** — **Standard** (64 MiB, about half a second to unlock) or **High** (256 MiB, about two seconds).
+
+4. Press `Enter` to create the vault. It opens straight away, logged in as the first member.
+
+</Steps>
+
+The password must be strong enough before the vault is created. The rules it breaks and the advice of the strength estimator are listed under the field as you type:
+
+- 12 to 128 characters;
+- at least one uppercase letter, one lowercase letter, one digit and one symbol;
+- a strength score of at least 3 out of 4, which rejects dictionary words and patterns such as `Password1!`.
+
+<Aside type="caution">
+There is no password recovery. If every member forgets their password, the content of the vault cannot be decrypted by anyone. Create the vault with at least two members, or keep your password in a password manager.
+</Aside>
+
+## Open an existing vault
+
+When a teammate already created the vault, add its file to your known vaults:
+
+<Steps>
+
+1. Press `o` on the home screen (or on **Vaults**). The **Open existing** form opens.
+
+2. Choose the **Location** with `←` `→` and give the file:
+
+   <Tabs syncKey="location">
+     <TabItem label="Local path">
+       An absolute path in **Vault file path**, for example `/home/ana/Sync/team.envite`.
+     </TabItem>
+     <TabItem label="SSH">
+       The host in **SSH host** as `user@host` or `user@host:port`, and the path of the file on that host in **Vault file path**.
+     </TabItem>
+   </Tabs>
+
+3. Keep the **Name** proposed from the file name, or type another one, and press `Enter`.
+
+</Steps>
+
+No password is asked here: envite only reads the start of the file to learn the vault's id. The same vault cannot be added twice under different locations.
+
+## Log in
+
+Select the vault on the home screen and press `Enter`. The **Login** screen asks for your member name and password; the member who opened the vault last on this machine is filled in. A wrong password and an unknown member both read **Invalid credentials**, so the screen never reveals who is a member.
+
+Once logged in you land on **Projects**. Press `Esc` there to save and close the vault and go back home; `Ctrl-L` locks it at once.
+
+## Members
+
+A vault starts with one member, its creator. Any member can add more from **Users** (`u` on **Projects**); see [Share a vault with a team](../../guides/share-a-vault/). Every member has the same rights.
+
+## Next steps
+
+Take the [tour of the screens](../tour/), or create your first project right away: press `n` on **Projects**.
