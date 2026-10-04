@@ -43,6 +43,13 @@ export default defineConfig({
 					tag: 'meta',
 					attrs: { property: 'og:site_name', content: 'Envite' },
 				},
+				{
+					tag: 'meta',
+					attrs: {
+						name: 'google-site-verification',
+						content: '9Tmam7NPlAYItzsHm5ToS5osD6ccx_ly9B4g4i1qXH0',
+					},
+				},
 			],
 			sidebar: [
 				{
