@@ -10,17 +10,7 @@
 
 Envite is a terminal application that keeps the environment variables of your projects in a single encrypted `.envite` file. Every team member opens it with their own password, the file can live on your disk, in a synced folder or on a server over SSH, and concurrent edits merge on save. When an environment is ready, envite shows a key-by-key diff and writes its `.env` file to the target, locally or over SSH.
 
-## Core concepts
-
-| Term | Meaning |
-|---|---|
-| **Vault** | One encrypted file with all your projects and their members. |
-| **Project** | An application, with its own details (author, license, description…). |
-| **Environment** | A deployment of a project (`production`, `staging`…), with its own `.env` target. |
-| **Section** | A titled group of variables inside an environment, with an optional comment. |
-| **Variable** | A `KEY=value` pair with a comment, secret masking and an enabled / disabled / commented state. |
-| **History** | Every change is recorded with who made it, when and which fields changed: browse it for the whole vault or a project, filtered by member, item type or action, or below each variable. Secret values are never shown. |
-| **Deploy** | Render the `.env` file of an environment, preview the diff and write it atomically, with a backup. |
+![Envite demo](demo.gif)
 
 ## Quick install
 
@@ -33,6 +23,18 @@ curl -fsSL https://raw.githubusercontent.com/Kevinsillo/envite/main/install.sh |
 - `envite update` installs the latest release after checking its SHA-256 (it needs `curl`). Once a day at startup envite also looks for a new version and offers it; turn that off in **Options**.
 
 Version, install directory, manual download and updating → [Installation](https://kevinsillo.github.io/envite/en/getting-started/installation/)
+
+## Core concepts
+
+| Term | Meaning |
+|---|---|
+| **Vault** | One encrypted file with all your projects and their members. |
+| **Project** | An application, with its own details (author, license, description…). |
+| **Environment** | A deployment of a project (`production`, `staging`…), with its own `.env` target. |
+| **Section** | A titled group of variables inside an environment, with an optional comment. |
+| **Variable** | A `KEY=value` pair with a comment, secret masking and an enabled / disabled / commented state. |
+| **History** | Every change is recorded with who made it, when and which fields changed: browse it for the whole vault or a project, filtered by member, item type or action, or below each variable. Secret values are never shown. |
+| **Deploy** | Render the `.env` file of an environment, preview the diff and write it atomically, with a backup. |
 
 ## Quick start
 
