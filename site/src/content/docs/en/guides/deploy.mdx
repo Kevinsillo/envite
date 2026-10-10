@@ -16,6 +16,7 @@ Set the deploy target in the environment form (`e` on **Environments**):
 - **Server** — blank for this machine, or an SSH destination (`user@host`, an alias from `~/.ssh/config`, or `ssh://user@host:port`).
 - **Target path** — the directory of the file. It must already exist; envite never creates it.
 - **File name** — blank for `.env`.
+- **Example file** — which `.env.example` file a deploy writes next to the `.env`: `Off` for none, `Blank` for one with every value blank (the default), or `No secrets` for one with only secret values blank.
 
 ## Deploy
 
@@ -58,13 +59,25 @@ In the last two cases the second confirmation is required, because those changes
 
 If the file at the target changes between the preview and the confirmation, nothing is written: preview again with `p`.
 
+## The .env.example file
+
+Unless the example choice is `Off`, every deploy also writes a `.env.example` file in the same directory, with the fixed name `.env.example`. It renders the same keys and states as the `.env` — disabled variables are omitted, commented ones stay commented — but with blank values:
+
+| Example file | `.env.example` holds |
+|---|---|
+| `Off` | Nothing is written; an existing example file is left alone. |
+| `Blank` (default) | Every value blank. |
+| `No secrets` | Only secret values blank; the rest keeps the deployed values. |
+
+Both files are written together: each goes to its own temporary file and is renamed over its target, and if either file changed since the preview, neither is replaced. The preview shows only the `.env` file. Each file gets its own backup and its own history entry with its own fingerprint, so a hand-edited example asks for the extra confirmation just like a hand-edited `.env` does.
+
 ## Backups
 
 Before replacing a file, envite copies it to `.envite-backups/` inside the target directory, named `<file>.<YYYYMMDD-HHMMSS>.bak` with the local time, for example `.env.20260115-093000.bak`. The 10 most recent backups of each file are kept; older ones are deleted after a successful deploy. A new file, or a deploy with no changes, takes no backup.
 
-## How the file is written
+## How the files are written
 
-The new content goes to a temporary file in the target directory, `.<file>.envite-<id>.tmp`, which is then renamed over the target. The replacement is atomic: readers see either the old or the new file. A failed deploy removes its temporary file and leaves the target untouched.
+Each new content goes to its own temporary file in the target directory, `.<file>.envite-<id>.tmp`, which is then renamed over its target. The replacement is atomic per file: readers see either the old or the new file. A failed deploy removes its temporary files and leaves the targets untouched.
 
 ## Permissions
 
