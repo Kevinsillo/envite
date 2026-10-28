@@ -65,7 +65,7 @@ Keys are read in one of two contexts:
 | Environments | `Enter` sections · `n` new · `e` edit · `r` rename · `d` delete · `p` deploy · `i` import · `/` find |
 | Sections | `Enter` variables · `n` new · `e` or `r` edit · `d` delete · `/` find |
 | Variables | `Enter` or `e` detail · `n` new · `v` reveal · `s` state · `d` delete · `/` find |
-| Variable detail | `Enter` save (or open the section picker on **Section**) · `Tab` next · `v` / `Ctrl-V` show or hide the value |
+| Variable detail | `Enter` save (or open the section picker on **Section**) · `Tab` next · `Shift-Tab` previous · `v` / `Ctrl-V` show or hide the value · opens with the focus on **Value** |
 | Deploy | `v` reveal the row · `Enter` deploy · `Esc` cancel |
 | Import preview | `s` skip / overwrite · `v` reveal the row · `Enter` import · `Esc` cancel |
 | Conflicts | `Enter` or `e` choose · `Enter` resolve when every conflict has a choice · `/` find · `Esc` back, dropping the choices |
