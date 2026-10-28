@@ -49,6 +49,12 @@ The server presents a different host key than the one in `known_hosts`. Envite n
 
 Yes. It runs the system `ssh`, so host aliases, `ProxyJump`, identity files and the agent all apply. A host alias can be used as the **Server** of an environment.
 
+## Values
+
+### A warning says the value may already be escaped
+
+Envite found a backslash before `\`, `"`, `$` or a backtick in the value you are typing. That is what a value copied from a deployed `.env` file holds: the file shows the escaped text, and pasting it back makes envite escape the escape again on the next deploy, so the application gets a value that is not the one you meant. Check the value against the one you wanted. If it really holds a backslash, the warning is a false positive and you can ignore it.
+
 ## Vaults
 
 ### I forgot my password

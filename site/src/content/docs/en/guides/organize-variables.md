@@ -54,9 +54,13 @@ On **Variables**, `n` opens **New variable**:
 
 `Enter` on any field saves.
 
+When the value holds a backslash before `\`, `"`, `$` or a backtick, envite warns that it may already be escaped: that is the shape a value copied from a deployed `.env` file has, and pasting it back would make the next deploy escape it again. The warning blocks nothing, and it may be a false positive, since a value that really holds a backslash looks the same.
+
 ## Edit a variable
 
-`Enter` or `e` on a variable opens its detail. Under the form, read-only, you see **Created** and **Modified** (when and by whom) and the history of the variable. When editing, the form also has a **State** field: enabled, disabled or commented. On the list, `s` cycles the state of the selected variable without opening it.
+`Enter` or `e` on a variable opens its detail, with the focus on **Value**, the field that is changed most; `Shift-Tab` twice goes back to **Key**. Under the form, read-only, you see **Created** and **Modified** (when and by whom) and the history of the variable. When editing, the form also has a **State** field: enabled, disabled or commented. On the list, `s` cycles the state of the selected variable without opening it.
+
+The value of a variable that may already be escaped warns you as when adding it, also when it is a secret, which is never shown to tell it.
 
 ## Move a variable to another section
 

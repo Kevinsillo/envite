@@ -72,6 +72,8 @@ A value is written bare when it is not empty and every character is an ASCII let
 
 This quoting is understood by dotenv libraries, Docker Compose and a shell `source`.
 
+**Do not copy a value from a deployed file back into envite.** The file shows the escaped text, so what you paste is the escape itself: envite escapes it again on the next deploy, and the application receives a value that is not the one you wanted. When the value you type holds a backslash before `\`, `"`, `$` or a backtick, envite warns you that it may already be escaped. The warning may be a false positive, since a value that really holds a backslash looks the same.
+
 ## What envite reads from a file
 
 Before a deploy envite reads the file at the target and compares it with the file about to be deployed; an import reads a file the same way. Reading never fails: whatever is not an entry is ignored, without being listed or counted.
