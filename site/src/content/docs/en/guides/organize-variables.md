@@ -21,6 +21,7 @@ Select a project, press `Enter`, then `n` on **Environments**. **New environment
 - **Server** — blank to deploy on this machine, or an SSH destination: a host alias from `~/.ssh/config`, `user@host`, or `ssh://user@host:port`.
 - **Target path** — the directory the file goes into. It must already exist on the server.
 - **File name** — blank for `.env`.
+- **Unix group** — the group's of this environment. Blank inherits the group's of the project, or the default group of the vault; the note under the field says which one.
 
 `r` renames an environment; `e` edits all its fields.
 

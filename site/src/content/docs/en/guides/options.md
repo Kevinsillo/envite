@@ -30,7 +30,7 @@ Open a vault and press `o` on **Projects**.
 
 | Group | Option | Effect |
 |---|---|---|
-| **Deploy** | **Default unix group** | Group of deployed files whose project sets none. Blank for none. |
+| **Deploy** | **Default unix group** | Group of deployed files whose environment and project set none. Blank for none. |
 | **Security** | **Key derivation** | Preset proposed for new members: **Standard** or **High**, or **Custom** when the vault already has custom settings. No existing password changes. |
 
 `Enter` saves each changed option, says **Vault options saved** and goes back. These options are part of the vault, so they are saved and merged like any other change.

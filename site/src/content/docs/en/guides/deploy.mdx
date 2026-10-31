@@ -17,6 +17,7 @@ Set the deploy target in the environment form (`e` on **Environments**):
 - **Target path** — the directory of the file. It must already exist; envite never creates it.
 - **File name** — blank for `.env`.
 - **Example file** — which `.env.example` file a deploy writes next to the `.env`: `Off` for none, `Blank` for one with every value blank (the default), or `No secrets` for one with only secret values blank.
+- **Unix group** — the group given to the file. Blank inherits the group's of the project, or the default group of the vault.
 
 ## Deploy
 
@@ -83,14 +84,18 @@ Each new content goes to its own temporary file in the target directory, `.<file
 
 | Situation | Deployed file and backups | Backup directory |
 |---|---|---|
-| The project has a **Unix group** | `0660`, that group | `0770`, that group |
+| The environment has a **Unix group** | `0660`, that group | `0770`, that group |
+| Otherwise, the project has a **Unix group** | `0660`, that group | `0770`, that group |
 | Otherwise, the vault has a **Default unix group** | `0660`, that group | `0770`, that group |
+| The group does not exist on the host | `0600`, owner only | `0700`, owner only |
 | No group | `0600`, owner only | `0700`, owner only |
 
 On a server, the owner is the SSH user. An existing backup directory is left as it is.
 
+The group is resolved before anything is written and checked on the host that will receive the file. When the host does not have that group, the deploy goes on without it: the file is written for its owner only, and the preview says so before you confirm.
+
 <Aside type="tip">
-Use a unix group when the application runs as another user than the one you deploy with: give the group to both users and set it on the project.
+Use a unix group when the application runs as another user than the one you deploy with: give the group to both users and set it on the environment, on the project or on the vault options, whichever is the closest one.
 </Aside>
 
 ## No changes, no write

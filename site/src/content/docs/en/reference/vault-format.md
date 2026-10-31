@@ -160,4 +160,4 @@ Besides the `.env` file itself, a deploy leaves on its target:
 - **Backups** in `.envite-backups/`, named `<file>.<YYYYMMDD-HHMMSS>.bak`, the 10 most recent per file kept.
 - **Temporary files** `.<file>.envite-<id>.tmp`, renamed over the target; a failed deploy removes its own.
 
-Modes are `0660` and `0770` with a unix group, `0600` and `0700` without. See [Deploy a .env file](../../guides/deploy/).
+Modes are `0660` and `0770` with a unix group, `0600` and `0700` without. The group is the one of the environment, else the one of the project, else the default group of the vault, and when the host does not have it the file is written for its owner only. See [Deploy a .env file](../../guides/deploy/).

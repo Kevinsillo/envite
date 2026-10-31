@@ -54,7 +54,7 @@ Disabling core dumps keeps that memory out of crash dumps. Systems that pipe cor
 
 ## Deployed files
 
-A `.env` file on a server is plaintext by nature. Envite writes it with `0600` (owner only) or `0660` with a unix group, through an atomic rename, and keeps up to 10 backups next to it in `.envite-backups/` with the same permissions. Protect the target directory accordingly.
+A `.env` file on a server is plaintext by nature. Envite writes it with `0600` (owner only) or `0660` with a unix group, through an atomic rename, and keeps up to 10 backups next to it in `.envite-backups/` with the same permissions. The group is the one of the environment, else the one of the project, else the default group of the vault; when the host does not have it, the file is written for its owner only. Protect the target directory accordingly.
 
 ## Updates
 

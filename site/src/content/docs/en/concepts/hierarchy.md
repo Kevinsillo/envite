@@ -44,8 +44,11 @@ An environment is one deployment of a project: `production`, `staging`, `local`â
 | **Server** | Blank for this machine (a local deploy), or an SSH destination: a host alias from `~/.ssh/config`, `user@host`, or `ssh://user@host:port`. |
 | **Target path** | Required. The directory the file is written into; it must exist. |
 | **File name** | Blank for `.env`. |
+| **Unix group** | Group given to the deployed file of this environment. Blank inherits the group's of the project, or the default group of the vault. |
 
 Every environment is created with a default section, **General**.
+
+The group of a deployed file is resolved with three levels, and the nearest one wins: the **Unix group** of the environment, else the **Unix group** of the project, else the **Default unix group** of the vault. See [Permissions](../../guides/deploy/#permissions).
 
 ## Section
 
