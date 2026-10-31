@@ -50,6 +50,7 @@ Keys are read in one of two contexts:
 | `s` | navigating | Cycle the state of the selected variable (variables); switch the selected key between skip and overwrite (import preview). |
 | `p` | navigating | Preview the deploy of the selected environment. |
 | `i` | navigating | Import pairs into the selected environment. |
+| `m` | navigating | Turn the metadata synchronization of the selected environment on or off, after reviewing what it changes. |
 | `c` | navigating | Open the conflicts left by the last save, from any screen of the open vault. |
 | `y` | navigating | Show the history of the selected project, or of the vault. |
 | `u` | navigating | Open the members of the vault (projects); cycle the member filter (history). |
@@ -62,7 +63,7 @@ Keys are read in one of two contexts:
 | Home | `Enter` open · `n` new vault · `o` open existing · `q` quit |
 | Vaults | `Enter` open · `n` new · `o` open existing · `r` rename · `d` remove from the list · `/` find |
 | Projects | `Enter` environments · `n` new · `e` edit · `d` delete · `y` history · `o` vault options · `u` users · `/` find · `Esc` close the vault |
-| Environments | `Enter` sections · `n` new · `e` edit · `r` rename · `d` delete · `p` deploy · `i` import · `/` find |
+| Environments | `Enter` sections · `n` new · `e` edit · `r` rename · `d` delete · `p` deploy · `i` import · `m` metadata sync · `/` find |
 | Sections | `Enter` variables · `n` new · `e` or `r` edit · `d` delete · `/` find |
 | Variables | `Enter` or `e` detail · `n` new · `v` reveal · `s` state · `d` delete · `/` find |
 | Variable detail | `Enter` save (or open the section picker on **Section**) · `Tab` next · `Shift-Tab` previous · `v` / `Ctrl-V` show or hide the value · opens with the focus on **Value** |

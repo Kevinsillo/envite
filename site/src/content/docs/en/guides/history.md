@@ -2,7 +2,7 @@
 title: Browse the history
 description: See who changed what in a project or in the whole vault, and filter by member, kind of entity and action.
 sidebar:
-  order: 25
+  order: 26
 ---
 
 The **History** screen lists the recent changes of a project or of the whole vault, newest first. What the history records, and why it keeps only the last 10 changes of each entity, is explained in [History](../../concepts/history/).

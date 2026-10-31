@@ -7,6 +7,8 @@ sidebar:
 
 Several members can have the same vault open at the same time. Each session works on its own copy in memory; saves are coordinated through the file itself, so no server is needed.
 
+This is the synchronization of the *vault*, the file itself, between the members who share it. Keeping the *environments* of a project in step — their sections, keys, flags and order — is a different thing, described in [Synchronize environments](../../guides/sync-environments/).
+
 ## Revisions and the save lock
 
 Every save increments the **revision** stored in the header. A session remembers the revision it last opened or wrote, its **base**. When it saves:

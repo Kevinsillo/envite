@@ -25,6 +25,8 @@ Select a project, press `Enter`, then `n` on **Environments**. **New environment
 
 `r` renames an environment; `e` edits all its fields.
 
+`m` turns the [metadata synchronization](../../guides/sync-environments/) of an environment on or off, so that the environments of the project keep the same sections and keys.
+
 ## Use sections
 
 Each environment starts with a **General** section. Add more with `n` on **Sections** to group related variables: a section becomes a titled block in the `.env` file.

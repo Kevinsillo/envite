@@ -78,6 +78,7 @@ export default defineConfig({
 					items: [
 						{ slug: 'guides/share-a-vault' },
 						{ slug: 'guides/organize-variables' },
+						{ slug: 'guides/sync-environments' },
 						{ slug: 'guides/deploy' },
 						{ slug: 'guides/import' },
 						{ slug: 'guides/resolve-conflicts' },

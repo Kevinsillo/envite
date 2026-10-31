@@ -2,7 +2,7 @@
 title: Options
 description: Set the auto-lock time, the default key derivation, how often envite checks for changes saved elsewhere and whether it looks for a new version at startup.
 sidebar:
-  order: 26
+  order: 27
 ---
 
 Envite has two sets of options: the **Options** of this machine, stored in your [configuration file](../../reference/configuration/), and the **Vault options** shared by every member of a vault.
